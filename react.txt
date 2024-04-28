@@ -1,0 +1,236 @@
+
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, FlatList, Image } from 'react-native';
+
+const projects = [
+  {
+    id: 1,
+    title: 'Video 101',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit cillum quis dolor cillum adipisicing minim.',
+    image: { uri: 'https://images.unsplash.com/photo-1540173196447-4a4acda7007e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3732&q=80' },
+    duration: 22,
+    price: 100,
+    teacher: {
+      img: { uri: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80' },
+      name: 'Gina L',
+    },
+  },
+  {
+    id: 2,
+    title: 'Basic Video Editing',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit cillum quis dolor cillum adipisicing minim.',
+    image: { uri: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80' },
+    duration: 12,
+    price: 120,
+    teacher: {
+      img: { uri: 'https://images.unsplash.com/photo-1553240799-36bbf332a5c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80' },
+      name: 'Jake P',
+    },
+  },
+  {
+    id: 3,
+    title: 'Basic Shooting',
+    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit cillum quis dolor cillum adipisicing minim.',
+    image: { uri: 'https://images.unsplash.com/photo-1523251239923-9969d2b4f95f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80' },
+    duration: 37,
+    price: 120,
+    teacher: {
+      img: { uri: 'https://images.unsplash.com/photo-1573497019236-17f8177b81e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80' },
+      name: 'Amy S',
+    }
+  }
+];
+
+const ProjectCard = ({ project }) => (
+  <View style={styles.projectCard}>
+    <Image source={project.image} style={styles.projectImage} />
+    <View style={styles.projectContent}>
+      <Text style={styles.projectTitle}>{project.title}</Text>
+      <Text style={styles.projectDescription}>{project.description}</Text>
+      <Text style={styles.projectInfo}>Duration: {project.duration} minutes</Text>
+      <Text style={styles.projectInfo}>Price: ${project.price}</Text>
+      <View style={styles.teacherInfo}>
+        <Image source={project.teacher.img} style={styles.teacherImage} />
+        <Text style={styles.teacherName}>{project.teacher.name}</Text>
+      </View>
+    </View>
+  </View>
+);
+
+const App = () => {
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.name}>John Doe</Text>
+        <Text style={styles.profession}>Web Developer</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>About Me</Text>
+        <Text style={styles.aboutText}>
+          I am a passionate web developer with experience in building web applications using React.js and Node.js.
+          I love to learn new technologies and enjoy solving real-world problems through coding.
+        </Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Skills</Text>
+        <View style={styles.skillsContainer}>
+          <Text style={styles.skill}>HTML</Text>
+          <Text style={styles.skill}>CSS</Text>
+          <Text style={styles.skill}>JavaScript</Text>
+          <Text style={styles.skill}>React.js</Text>
+          <Text style={styles.skill}>Node.js</Text>
+          <Text style={styles.skill}>Express.js</Text>
+        </View>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Experience</Text>
+        <View style={styles.experienceItem}>
+          <Text style={styles.experienceTitle}>Web Developer</Text>
+          <Text style={styles.experienceDate}>Jan 2020 - Present</Text>
+          <Text style={styles.experienceDescription}>
+            - Developed user interfaces for web applications using React.js {'\n'}
+            - Implemented RESTful APIs using Node.js and Express.js {'\n'}
+            - Collaborated with the team to design and implement new features
+          </Text>
+        </View>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Education</Text>
+        <View style={styles.educationItem}>
+          <Text style={styles.educationTitle}>Bachelor of Computer Science</Text>
+          <Text style={styles.educationDate}>2016 - 2020</Text>
+          <Text style={styles.educationDescription}>University of ABC</Text>
+        </View>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Projects</Text>
+        <FlatList
+          data={projects}
+          renderItem={({ item }) => <ProjectCard project={item} />}
+          keyExtractor={item => item.id.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.projectsSlider}
+        />
+      </View>
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    backgroundColor: '#f5f5f5',
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    paddingBottom: 20,
+  },
+  header: {
+    marginBottom: 20,
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  profession: {
+    fontSize: 18,
+    color: '#666',
+  },
+  section: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  aboutText: {
+    fontSize: 16,
+  },
+  skillsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  skill: {
+    backgroundColor: '#007bff',
+    color: '#fff',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+    marginRight: 10,
+    marginBottom: 10,
+  },
+  experienceItem: {
+    marginBottom: 10,
+  },
+  experienceTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  experienceDate: {
+    color: '#666',
+    marginBottom: 5,
+  },
+  experienceDescription: {
+    marginLeft: 20,
+  },
+  educationItem: {
+    marginBottom: 10,
+  },
+  educationTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  educationDate: {
+    color: '#666',
+    marginBottom: 5,
+  },
+  educationDescription: {
+    marginLeft: 20,
+  },
+  projectsSlider: {
+    flexGrow: 0,
+  },
+  projectCard: {
+    width: 300,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    marginRight: 20,
+    overflow: 'hidden',
+  },
+  projectImage: {
+    width: '100%',
+    height: 200,
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  projectContent: {
+    padding: 10,
+  },
+  projectTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  projectDescription: {
+    marginBottom: 10,
+  },
+  projectInfo: {
+    marginBottom: 5,
+  },
+  teacherInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  teacherImage: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginRight: 5,
+  },
+  teacherName: {
+    fontSize: 14,
+  },
+});
+
+export default App;
